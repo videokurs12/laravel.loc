@@ -1,8 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\User;
-use App\Models\Post;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -15,10 +15,10 @@ use App\Models\Post;
 |
 */
 
-Route::get('/', function (){
-   return view('home');
-})->name('home');
-
+Route::get('/', [\App\Http\Controllers\HomeController::class, 'index']);
+Route::get('/test', [\App\Http\Controllers\HomeController::class, 'test']);
+Route::get('/test2', [\App\Http\Controllers\Test\TestController::class, 'index']);
+Route::get('/page/{slug}', [\App\Http\Controllers\PageController::class, 'show']);
 
 Route::fallback(function () {
 //    return redirect()->route('home');
