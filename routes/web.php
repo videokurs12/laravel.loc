@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Models\User;
+use App\Models\Post;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,38 +15,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-/*Route::get('/', function () {
-    return view('welcome');
-});*/
+Route::get('/', function (){
+   return view('home');
+})->name('home');
 
-Route::get('/', function () {
-    $res = 2+3;
-    $name = 'John';
-    $var = 1;
-    return view('home', compact('res', 'name', 'var'));
+
+Route::fallback(function () {
+//    return redirect()->route('home');
+    abort(404, 'Oops! Page not found...');
 });
 
-Route::get('/about', function () {
-    return 'About';
-});
-
-/*Route::get('/contact', function () {
-    return view('contact');
-});
-
-Route::post('/send-email', function () {
-    if(!empty($_POST)){
-        dump($_POST);
-    }
-    return 'Send Email';
-});*/
-
-Route::match(['post', 'get'], '/contact2', function () {
-    if(!empty($_POST)){
-        dump($_POST);
-    }
-    return view('contact');
-})->name('contact');
-
-Route::view('/test', 'test', ['test' => 'Test data']);
 

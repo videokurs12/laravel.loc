@@ -5,12 +5,9 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-{{--    <link rel="icon" href="data:;base64,=">--}}
-    <title>Document</title>
+    <title>404</title>
 </head>
 <body>
-
-<h1>Главная страница</h1>
-
+<h1>{{ $exception->getMessage() }}</h1>
 </body>
 </html>
