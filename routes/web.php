@@ -20,6 +20,10 @@ Route::get('/test', [\App\Http\Controllers\HomeController::class, 'test']);
 Route::get('/test2', [\App\Http\Controllers\Test\TestController::class, 'index']);
 Route::get('/page/{slug}', [\App\Http\Controllers\PageController::class, 'show']);
 
+Route::resource('posts', \App\Http\Controllers\PostController::class)->parameters([
+    'posts' => 'slug'
+]);
+
 Route::fallback(function () {
 //    return redirect()->route('home');
     abort(404, 'Oops! Page not found...');
