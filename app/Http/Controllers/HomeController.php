@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Post;
 use App\Models\Rubric;
+use App\Models\Tag;
 use Illuminate\Support\Facades\DB;
 
 
@@ -15,11 +16,11 @@ class HomeController extends Controller
 {
     public function index()
     {
-        $posts = Rubric::find(4)->posts;
-        dump($posts);
-//       $rubric = Post::find(3)->rubric;
-//       dump($rubric->title);
-
+        $tag = Tag::find(3);
+        dump($tag->title);
+        foreach ($tag->posts as $post){
+            dump($post->title);
+        }
         return view('home');
     }
 
