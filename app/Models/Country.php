@@ -11,13 +11,13 @@ use Illuminate\Database\Eloquent\Model;
  * @package App
  * @mixin Builder
  */
-class Post extends Model
+
+class Country extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['title', 'content'];
-
- /*   protected $attributes = [
-        'content' => 'Lorem ipsum...',
-    ];*/
+    protected $table = 'country';
+    protected $primaryKey = 'Code';
+    public $incrementing = false;
+    protected $keyType = 'string';
 }
