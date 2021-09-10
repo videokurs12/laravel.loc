@@ -16,7 +16,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', [\App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/create', [\App\Http\Controllers\HomeController::class, 'create'])->name('posts.create');
+Route::post('/', [\App\Http\Controllers\HomeController::class, 'store'])->name('posts.store');
+
 Route::get('/page/about', [\App\Http\Controllers\PageController::class, 'show'])->name('page.about');
+
+
 
 
 

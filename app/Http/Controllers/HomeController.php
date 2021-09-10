@@ -9,7 +9,9 @@ use App\Models\Country;
 use App\Models\Post;
 use App\Models\Rubric;
 use App\Models\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 
 class HomeController extends Controller
@@ -17,19 +19,40 @@ class HomeController extends Controller
     public function index()
     {
         $title = 'Home Page';
-        $h1 = '<h1>home page</h1>';
-        $data1 = range(1,20);
-        $data2 = [
-            'title' => 'Title',
-            'content' => 'Content',
-            'keys' => 'Keywords',
-        ];
-        return view('home', compact('title', 'h1', 'data1', 'data2'));
+        $posts = Post::orderBy('id', 'desc')->get();
+        return view('home', compact('title',  'posts'));
     }
 
-    public function test()
+    public function create()
     {
-        return __METHOD__;
+        $title = 'Create Post';
+        $rubrics = Rubric::pluck('title', 'id')->all();
+        return view('create', compact('title', 'rubrics'));
+    }
+
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'title' => 'required|min:5|max:100',
+            'content' => 'required',
+            'rubric_id' => 'integer',
+        ]);
+
+        /*$rules = [
+            'title' => 'required|min:5|max:100',
+            'content' => 'required',
+            'rubric_id' => 'integer',
+        ];
+        $messages = [
+            'title.required' => 'Заполните поле названия',
+            'title.min' => 'Минимум 5 символов в названии',
+            'rubric_id.integer' => 'Выберите рубрику из списка',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages)->validate();*/
+
+        Post::create($request->all());
+        return redirect()->route('home');
     }
 
 }

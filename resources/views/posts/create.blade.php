@@ -11,7 +11,8 @@
 
 <form action="{{ route('posts.store') }}" method="post">
     @csrf
-    <input type="text" name="title">
+    <input type="text" name="title"><br>
+    <textarea name="content" id="" cols="30" rows="10"></textarea><br>
     <button type="submit">Submit</button>
 </form>
 
