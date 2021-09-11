@@ -10,16 +10,29 @@ use App\Models\Post;
 use App\Models\Rubric;
 use App\Models\Tag;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 
 class HomeController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
+//        Cache::put('key', 'value', 300);
+//        dump(Cache::pull('key'));
+//        Cache::forget('key');
+//        Cache::flush();
+//        dump(Cache::get('key'));
+        if (Cache::has('posts')){
+            $posts = Cache::get('posts');
+        } else {
+            $posts = Post::orderBy('id', 'desc')->get();
+            Cache::put('posts', $posts);
+        }
         $title = 'Home Page';
-        $posts = Post::orderBy('id', 'desc')->get();
+//        $posts = Post::orderBy('id', 'desc')->get();
         return view('home', compact('title',  'posts'));
     }
 
@@ -52,6 +65,7 @@ class HomeController extends Controller
         $validator = Validator::make($request->all(), $rules, $messages)->validate();*/
 
         Post::create($request->all());
+        $request->session()->flash('success', 'Данные сохранены');
         return redirect()->route('home');
     }
 
