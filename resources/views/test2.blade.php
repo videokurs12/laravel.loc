@@ -9,15 +9,13 @@
 </head>
 <body>
 
-<form action="{{ route('contact') }}" method="post">
-    {{-- csrf_field() --}}
-    @csrf
-    <input type="text" name="name"><br>
+<div>
+    <p><b>Имя:</b> {{ $body->name }}</p>
+    <p><b>Сообщение:</b><br> {{ nl2br($body->text) }} </p>
+</div>
 
-    <input type="email" name="email"><br>
-    <textarea name="text" id="" cols="30" rows="10"></textarea><br>
-    <button type="submit">Submit</button>
-</form>
+
+<img src="{{ $message->embed(url('img/2.jpg')) }}" alt="">
 
 </body>
 </html>

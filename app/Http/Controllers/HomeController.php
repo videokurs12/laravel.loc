@@ -69,4 +69,9 @@ class HomeController extends Controller
         return redirect()->route('home');
     }
 
+    public function contact()
+    {
+        return view('contact');
+    }
+
 }
