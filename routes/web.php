@@ -27,5 +27,13 @@ Route::get('/page/about', [\App\Http\Controllers\PageController::class, 'show'])
 
 Route::match(['get', 'post'],'/send', [\App\Http\Controllers\ContactController::class, 'send']);
 
+Route::get('register', [\App\Http\Controllers\User\UserController::class, 'create'])->name('register.create');
+Route::post('register', [\App\Http\Controllers\User\UserController::class, 'store'])->name('register.store');
+
+Route::get('login', [\App\Http\Controllers\User\UserController::class, 'loginForm'])->name('login.create');
+Route::post('login', [\App\Http\Controllers\User\UserController::class, 'login'])->name('login');
+Route::get('logout', [\App\Http\Controllers\User\UserController::class, 'logout'])->name('logout');
+
+Route::get('admin', [\App\Http\Controllers\Admin\MainController::class, 'index']);
 
 
