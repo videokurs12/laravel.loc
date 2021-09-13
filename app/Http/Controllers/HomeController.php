@@ -21,16 +21,9 @@ class HomeController extends Controller
     public function index(Request $request)
     {
 
-        if (Cache::has('posts')){
-            $posts = Cache::get('posts');
-        } else {
-            $posts = Post::orderBy('id', 'desc')->get();
-            Cache::put('posts', $posts);
-        }
-
-
         $title = 'Home Page';
-//        $posts = Post::orderBy('id', 'desc')->get();
+        $posts = Post::orderBy('id', 'desc')->paginate(3);
+
         return view('home', compact('title',  'posts'));
     }
 

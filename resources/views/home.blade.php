@@ -39,6 +39,7 @@
                 </div>
                 @endforeach
             </div>
+            {{ $posts->onEachSide(2)->links('vendor.pagination.bootstrap-4') }}
         </div>
     </div>
 @endsection
