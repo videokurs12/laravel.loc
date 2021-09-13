@@ -27,13 +27,18 @@ Route::get('/page/about', [\App\Http\Controllers\PageController::class, 'show'])
 
 Route::match(['get', 'post'],'/send', [\App\Http\Controllers\ContactController::class, 'send']);
 
-Route::get('register', [\App\Http\Controllers\User\UserController::class, 'create'])->name('register.create');
-Route::post('register', [\App\Http\Controllers\User\UserController::class, 'store'])->name('register.store');
+Route::group(['middleware' => 'guest'], function () {
+    Route::get('register', [\App\Http\Controllers\User\UserController::class, 'create'])->name('register.create');
+    Route::post('register', [\App\Http\Controllers\User\UserController::class, 'store'])->name('register.store');
+    Route::get('login', [\App\Http\Controllers\User\UserController::class, 'loginForm'])->name('login.create');
+    Route::post('login', [\App\Http\Controllers\User\UserController::class, 'login'])->name('login');
+});
 
-Route::get('login', [\App\Http\Controllers\User\UserController::class, 'loginForm'])->name('login.create');
-Route::post('login', [\App\Http\Controllers\User\UserController::class, 'login'])->name('login');
-Route::get('logout', [\App\Http\Controllers\User\UserController::class, 'logout'])->name('logout');
+Route::get('logout', [\App\Http\Controllers\User\UserController::class, 'logout'])->name('logout')->middleware('auth');
 
-Route::get('admin', [\App\Http\Controllers\Admin\MainController::class, 'index']);
+Route::group(['middleware' => 'admin', 'prefix' => 'admin', 'namespace' => 'Admin'], function () {
+    Route::get('/', [\App\Http\Controllers\Admin\MainController::class, 'index']);
+});
+
 
 
