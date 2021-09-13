@@ -20,17 +20,15 @@ class HomeController extends Controller
 {
     public function index(Request $request)
     {
-//        Cache::put('key', 'value', 300);
-//        dump(Cache::pull('key'));
-//        Cache::forget('key');
-//        Cache::flush();
-//        dump(Cache::get('key'));
+
         if (Cache::has('posts')){
             $posts = Cache::get('posts');
         } else {
             $posts = Post::orderBy('id', 'desc')->get();
             Cache::put('posts', $posts);
         }
+
+
         $title = 'Home Page';
 //        $posts = Post::orderBy('id', 'desc')->get();
         return view('home', compact('title',  'posts'));
